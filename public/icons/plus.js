@@ -1,4 +1,4 @@
-export default function PlusIcon() {
+export default function PlusIcon({ className }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,6 +6,7 @@ export default function PlusIcon() {
       height="30"
       fill="none"
       viewBox="0 0 29 30"
+      className={className}
     >
       <path
         fill="#0BA7DA"
@@ -17,5 +18,6 @@ export default function PlusIcon() {
         fill="#0BA7DA"
         d="M20.384 16.658h-3.75v3.903h-3.49v-3.903H9.393v-3.356h3.75V9.373h3.49v3.929h3.751v3.356z"
       ></path>
-    </svg>  )
+    </svg>
+  );
 }

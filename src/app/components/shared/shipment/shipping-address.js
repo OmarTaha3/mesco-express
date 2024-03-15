@@ -42,36 +42,33 @@ export default function ShippingAddress({ type }) {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between ">
-        <div className="flex flex-col gap-3">
-          <h3 className="font-semibold mb-3">Ship {shippingAddress.ship}</h3>
-
-          <SelectContact
-            label={`${shippingAddress.man} Contact`}
-            selectedPerson={shippingAddress.selectedContact}
-            setSelectedPerson={shippingAddress.handleChangeContact}
-          />
-          <SelectAddress
-            label={`${shippingAddress.man} Address`}
-            selectedAddress={shippingAddress.selectedAddress}
-            setSelectedAddress={shippingAddress.handleChangeAddress}
-          />
-        </div>
-        <div className="bg-gray w-[340px] h-[225px] rounded-10 py-12 pl-10 pr-9 text-black text-sm">
-          {shippingAddress.selectedContact.name ? (
-            <>
-              <p className="capitalize  font-bold ">
-                {shippingAddress.selectedContact.name}
-              </p>
-              <p>{shippingAddress.selectedContact.phoneNumber}</p>
-              <p>{shippingAddress.selectedContact.email}</p>
-              <p>{shippingAddress.selectedAddress.fullAddress}</p>
-            </>
-          ) : (
-            <p className="text-grayAlterTwo">Your data will appear here</p>
-          )}
-        </div>
+    <div className="flex justify-between">
+      <div className="flex flex-col gap-3">
+        <h3 className="font-semibold mb-3">Ship {shippingAddress.ship}</h3>
+        <SelectContact
+          label={`${shippingAddress.man} Contact`}
+          selectedPerson={shippingAddress.selectedContact}
+          setSelectedPerson={shippingAddress.handleChangeContact}
+        />
+        <SelectAddress
+          label={`${shippingAddress.man} Address`}
+          selectedAddress={shippingAddress.selectedAddress}
+          setSelectedAddress={shippingAddress.handleChangeAddress}
+        />
+      </div>
+      <div className="bg-gray w-[390px] rounded-10 py-12 pl-10 pr-9 text-black text-sm">
+        {shippingAddress.selectedContact.name ? (
+          <>
+            <p className="capitalize  font-bold ">
+              {shippingAddress.selectedContact.name}
+            </p>
+            <p>{shippingAddress.selectedContact.phoneNumber}</p>
+            <p>{shippingAddress.selectedContact.email}</p>
+            <p>{shippingAddress.selectedAddress.fullAddress}</p>
+          </>
+        ) : (
+          <p className="text-grayAlterTwo">Your data will appear here</p>
+        )}
       </div>
     </div>
   );

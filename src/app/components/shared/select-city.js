@@ -37,14 +37,14 @@ export default function SelectCity({ city, setCity }) {
                 >
                   {city ? city : "Select city"}
                 </span>
-                <soan
+                <span
                   className={clsx(
                     "transition",
                     open ? "-rotate-180" : "rotate-0"
                   )}
                 >
                   <ArrowDownIcon />
-                </soan>
+                </span>
               </Menu.Button>
             </div>
             <Transition

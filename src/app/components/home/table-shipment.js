@@ -8,6 +8,7 @@ import Checkbox from "../shared/checkbox";
 import useSelectedShipments from "../../../store/client/select-shipment-slice";
 import StarIcon from "../../../../public/icons/star";
 import ArrowDownIcon from "../../../../public/icons/arrow-down";
+import TablePagination from "../shared/table-pagination";
 
 export default function TableShipment() {
   const [shipmentData, setShipmentData] = useState([
@@ -121,24 +122,6 @@ export default function TableShipment() {
     },
   ]);
   const { selectedShipments, toggleShipment, reset } = useSelectedShipments();
-  const [page, setPage] = useState(10);
-  const dataLength = 200;
-
-  const nextPage = () => {
-    if (page + 10 < dataLength) {
-      setPage(page + 10);
-    } else {
-      setPage(dataLength);
-    }
-  };
-
-  const prevPage = () => {
-    if (page - 10 < 10) {
-      setPage(10);
-    } else {
-      setPage(page - 10);
-    }
-  };
 
   const handleChecked = (id) => {
     return selectedShipments.includes(id);
@@ -198,7 +181,7 @@ export default function TableShipment() {
             <tr className="h-12 bg-blueLighter font-semibold sticky top-0">
               <td className="text-center w-16">
                 <Checkbox
-                  id="d"
+                  id="global-checkbox"
                   className="mx-auto bg-grayAlter text-grayAlter"
                   onChange={(e) => handleCheckAll(e.target.checked)}
                   checked={isAllSelected()}
@@ -227,8 +210,11 @@ export default function TableShipment() {
             </tr>
           </thead>
           <tbody className="text-black ">
-            {shipmentData.map((shipment, index) => (
-              <tr key={index} className="h-24 hover:bg-gray transition group">
+            {shipmentData.map((shipment) => (
+              <tr
+                key={shipment.id}
+                className="h-24 hover:bg-gray transition group"
+              >
                 <td>
                   <Checkbox
                     id={shipment.id}
@@ -278,30 +264,7 @@ export default function TableShipment() {
           <tbody></tbody>
         </table>
       </div>
-      <div className="flex items-center justify-end w-full select-none mb-4">
-        {/* don't forget to change (page - 9) to shipmentData.length */}
-        {page - 9} - {page} of {dataLength}
-        <div className="flex items-center gap-3 ml-3">
-          <div
-            onClick={prevPage}
-            className={clsx(
-              " cursor-pointer",
-              page === 10 ? "text-grayPlusPlus" : "text-primary"
-            )}
-          >
-            <ArrowLeftIcon />
-          </div>
-          <div
-            onClick={nextPage}
-            className={clsx(
-              " cursor-pointer",
-              page !== dataLength ? " text-primary" : "text-grayPlusPlus"
-            )}
-          >
-            <ArrowRightIcon />
-          </div>
-        </div>
-      </div>
+      <TablePagination />
     </section>
   );
 }

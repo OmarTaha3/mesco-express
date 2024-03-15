@@ -3,52 +3,57 @@ import React from "react";
 import Logo from "../../../public/icons/logo";
 import ShipmentsIcon from "../../../public/icons/shipments";
 import AddressIcon from "../../../public/icons/address";
-import useActiveTap from "../../store/client/tap-slice";
 import clsx from "clsx";
-import Button from "./shared/button";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { routes } from "../../routes";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const router = useRouter();
-  const { activeTap, setTapShipments, setTapAddress } = useActiveTap();
+  const path = usePathname();
+
   return (
-    <section className="container py-8 flex items-center justify-between sticky top-0 bg-white z-20">
+    <header className="container py-8 flex items-center justify-between sticky top-0 bg-white z-20">
       <div className="flex items-center gap-20">
-        <button onClick={() => router.push("/")}>
+        <Link href={routes.MY_SHIPMENTS}>
           <Logo />
-        </button>
+        </Link>
         <div className="flex items-center gap-14">
-          <div
-            onClick={setTapShipments}
-            className="flex flex-col gap-3 cursor-pointer"
+          <Link
+            href={routes.MY_SHIPMENTS}
+            className={clsx(
+              "flex items-center gap-3 pb-3 border-b-2 transition ",
+              path.split("/")[1] !== "address-book" &&
+                path.split("/")[1] !== "my-profile"
+                ? "border-secondary"
+                : "border-transparent"
+            )}
           >
-            <div className="flex items-center gap-3">
-              <ShipmentsIcon /> My Shipments
-            </div>
-            <div
-              className={clsx(
-                "w-full h-0.5 bg-secondary transition",
-                activeTap === "shipments" ? "opacity-100" : "opacity-0"
-              )}
-            ></div>
-          </div>
-          <div
-            onClick={setTapAddress}
-            className="flex flex-col gap-3 cursor-pointer"
+            <ShipmentsIcon /> My Shipments
+          </Link>
+          <Link
+            href={routes.ADDRESS_BOOK}
+            className={clsx(
+              "flex items-center gap-3 pb-3 border-b-2 transition ",
+              path.split("/")[1] === "address-book"
+                ? "border-secondary"
+                : "border-transparent"
+            )}
           >
-            <div className="flex items-center gap-3">
-              <AddressIcon /> Address Book
-            </div>
-            <div
-              className={clsx(
-                "w-full h-0.5 bg-secondary transition",
-                activeTap === "address" ? "opacity-100" : "opacity-0"
-              )}
-            ></div>
-          </div>
+            <AddressIcon /> Address Book
+          </Link>
         </div>
       </div>
-      <Button>My profile</Button>
-    </section>
+      <Link
+        href={routes.MY_PROFILE}
+        className={clsx(
+          "flex items-center gap-3 px-30  h-12 rounded-10 font-semibold transition",
+          path.split("/")[1] === "my-profile"
+            ? "bg-primary text-gray"
+            : "bg-gray"
+        )}
+      >
+        My profile
+      </Link>
+    </header>
   );
 }

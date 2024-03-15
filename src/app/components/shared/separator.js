@@ -1,7 +1,10 @@
-import React from 'react'
+import clsx from "clsx";
+import React from "react";
 
-export default function Separetor() {
+export default function Separetor({ vertical }) {
   return (
-    <div className='bg-primary w-full h-px'></div>
-  )
+    <div
+      className={clsx("bg-primary ", vertical ? " w-px" : "w-full h-px")}
+    ></div>
+  );
 }
